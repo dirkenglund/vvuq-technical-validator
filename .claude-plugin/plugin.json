@@ -1,0 +1,50 @@
+{
+  "name": "vvuq-technical-validator",
+  "version": "1.0.0",
+  "description": "Validation, Verification, and Uncertainty Quantification for technical content in math, physics, and electrical engineering",
+  "author": "dirkenglund",
+  "license": "MIT",
+  "repository": "https://github.com/dirkenglund/vvuq-technical-validator",
+  "keywords": [
+    "vvuq",
+    "validation",
+    "verification",
+    "physics",
+    "math",
+    "engineering",
+    "scientific-review",
+    "error-detection"
+  ],
+  "categories": [
+    "scientific",
+    "education",
+    "code-review"
+  ],
+  "capabilities": {
+    "skills": ["vvuq-validator"],
+    "commands": ["validate", "validate-paper", "vvuq-benchmark"]
+  },
+  "requirements": {
+    "claude_code_version": ">=1.0.0"
+  },
+  "configuration": {
+    "default_model": {
+      "type": "string",
+      "enum": ["haiku", "sonnet", "opus"],
+      "default": "sonnet",
+      "description": "Default model for validation (sonnet recommended for research, haiku for education)"
+    },
+    "strictness": {
+      "type": "string",
+      "enum": ["strict", "permissive"],
+      "default": "permissive",
+      "description": "Strict flags convention differences as errors; permissive accepts valid alternatives"
+    },
+    "domains": {
+      "type": "array",
+      "items": ["math", "physics", "electrical_engineering", "quantum_optics", "numerical_methods"],
+      "default": ["math", "physics", "electrical_engineering"],
+      "description": "Domains to check"
+    }
+  }
+}

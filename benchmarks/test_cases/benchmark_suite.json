@@ -1,0 +1,331 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "created": "2026-02-22",
+    "description": "VVUQ Benchmark Suite for Math, Physics, and Electrical Engineering",
+    "domains": ["math", "physics", "electrical_engineering"],
+    "difficulty_levels": ["easy", "medium", "hard"]
+  },
+  "test_cases": [
+    {
+      "id": "MATH-001",
+      "domain": "math",
+      "difficulty": "easy",
+      "title": "Quadratic formula - CORRECT",
+      "content": "For the equation $ax^2 + bx + c = 0$, the solutions are:\n$$x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}$$",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "MATH-002",
+      "domain": "math",
+      "difficulty": "easy",
+      "title": "Quadratic formula - SIGN ERROR",
+      "content": "For the equation $ax^2 + bx + c = 0$, the solutions are:\n$$x = \\frac{b \\pm \\sqrt{b^2 - 4ac}}{2a}$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "sign_error",
+            "description": "Missing negative sign on b in numerator"
+          }
+        ]
+      }
+    },
+    {
+      "id": "MATH-003",
+      "domain": "math",
+      "difficulty": "medium",
+      "title": "Gaussian integral - CORRECT",
+      "content": "The Gaussian integral evaluates to:\n$$\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\sqrt{\\pi}$$",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "MATH-004",
+      "domain": "math",
+      "difficulty": "medium",
+      "title": "Gaussian integral - FACTOR ERROR",
+      "content": "The Gaussian integral evaluates to:\n$$\\int_{-\\infty}^{\\infty} e^{-x^2} dx = \\pi$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "factor_error",
+            "description": "Result should be sqrt(pi), not pi"
+          }
+        ]
+      }
+    },
+    {
+      "id": "MATH-005",
+      "domain": "math",
+      "difficulty": "hard",
+      "title": "Fourier transform convention - SUBTLE ERROR",
+      "content": "The Fourier transform pair is:\n$$\\tilde{f}(\\omega) = \\int_{-\\infty}^{\\infty} f(t) e^{i\\omega t} dt$$\n$$f(t) = \\frac{1}{2\\pi} \\int_{-\\infty}^{\\infty} \\tilde{f}(\\omega) e^{-i\\omega t} d\\omega$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MAJOR",
+            "category": "sign_convention",
+            "description": "Sign in exponentials is inconsistent. Common convention: forward has -iwt, inverse has +iwt, or vice versa but with matching signs"
+          }
+        ]
+      }
+    },
+    {
+      "id": "PHYS-001",
+      "domain": "physics",
+      "difficulty": "easy",
+      "title": "Kinetic energy - CORRECT",
+      "content": "The kinetic energy of a particle with mass $m$ and velocity $v$ is:\n$$E_k = \\frac{1}{2}mv^2$$\nwith units of Joules (kg·m²/s²).",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "PHYS-002",
+      "domain": "physics",
+      "difficulty": "easy",
+      "title": "Kinetic energy - DIMENSIONAL ERROR",
+      "content": "The kinetic energy of a particle with mass $m$ and velocity $v$ is:\n$$E_k = \\frac{1}{2}mv$$\nwith units of Joules.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "dimensional_error",
+            "description": "Units are kg·m/s (momentum), not kg·m²/s² (energy). Missing v² factor."
+          }
+        ]
+      }
+    },
+    {
+      "id": "PHYS-003",
+      "domain": "physics",
+      "difficulty": "medium",
+      "title": "Heisenberg uncertainty - CORRECT",
+      "content": "The Heisenberg uncertainty principle states:\n$$\\Delta x \\cdot \\Delta p \\geq \\frac{\\hbar}{2}$$\nwhere $\\Delta x$ is position uncertainty and $\\Delta p$ is momentum uncertainty.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "PHYS-004",
+      "domain": "physics",
+      "difficulty": "medium",
+      "title": "Heisenberg uncertainty - WRONG BOUND",
+      "content": "The Heisenberg uncertainty principle states:\n$$\\Delta x \\cdot \\Delta p \\geq \\hbar$$\nwhere $\\Delta x$ is position uncertainty and $\\Delta p$ is momentum uncertainty.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MAJOR",
+            "category": "factor_error",
+            "description": "Lower bound should be ℏ/2, not ℏ. Factor of 2 error."
+          }
+        ]
+      }
+    },
+    {
+      "id": "PHYS-005",
+      "domain": "physics",
+      "difficulty": "hard",
+      "title": "Shot noise scaling - CORRECT (Heisenberg limit)",
+      "content": "For N independent measurements, shot noise scales as $1/\\sqrt{N}$.\nWith N entangled particles, the Heisenberg limit achieves $1/N$ scaling.\nThus, sensitivity improvement from entanglement is $\\sqrt{N}$ over classical.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "PHYS-006",
+      "domain": "physics",
+      "difficulty": "hard",
+      "title": "Shot noise scaling - N² ERROR",
+      "content": "For N independent measurements, shot noise scales as $1/\\sqrt{N}$.\nWith N entangled particles, the Heisenberg limit achieves $1/N^2$ scaling.\nThus, sensitivity improvement from entanglement is $N^{3/2}$ over classical.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "physics_error",
+            "description": "Heisenberg limit is 1/N, not 1/N². The N² scaling violates fundamental quantum limits."
+          }
+        ]
+      }
+    },
+    {
+      "id": "PHYS-007",
+      "domain": "physics",
+      "difficulty": "hard",
+      "title": "Lorentz force - SIGN ERROR",
+      "content": "The Lorentz force on a charged particle is:\n$$\\vec{F} = q(\\vec{E} - \\vec{v} \\times \\vec{B})$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "sign_error",
+            "description": "Should be + not - for the magnetic term: F = q(E + v × B)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EE-001",
+      "domain": "electrical_engineering",
+      "difficulty": "easy",
+      "title": "Ohm's law - CORRECT",
+      "content": "For a resistor with resistance $R$, the voltage-current relationship is:\n$$V = IR$$\nwhere V is in volts, I in amperes, and R in ohms.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "EE-002",
+      "domain": "electrical_engineering",
+      "difficulty": "easy",
+      "title": "Ohm's law - INVERTED",
+      "content": "For a resistor with resistance $R$, the voltage-current relationship is:\n$$V = I/R$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "formula_error",
+            "description": "Ohm's law is V=IR, not V=I/R"
+          }
+        ]
+      }
+    },
+    {
+      "id": "EE-003",
+      "domain": "electrical_engineering",
+      "difficulty": "medium",
+      "title": "RC time constant - CORRECT",
+      "content": "For an RC circuit, the time constant is $\\tau = RC$.\nThe voltage across a charging capacitor is:\n$$V(t) = V_0(1 - e^{-t/\\tau})$$",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "EE-004",
+      "domain": "electrical_engineering",
+      "difficulty": "medium",
+      "title": "RC time constant - WRONG EXPONENT SIGN",
+      "content": "For an RC circuit, the time constant is $\\tau = RC$.\nThe voltage across a charging capacitor is:\n$$V(t) = V_0(1 - e^{t/\\tau})$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "sign_error",
+            "description": "Exponent should be -t/τ (negative), not +t/τ. Positive exponent gives exponential growth, not decay toward V0."
+          }
+        ]
+      }
+    },
+    {
+      "id": "EE-005",
+      "domain": "electrical_engineering",
+      "difficulty": "medium",
+      "title": "Capacitor impedance - CORRECT",
+      "content": "The impedance of a capacitor at angular frequency $\\omega$ is:\n$$Z_C = \\frac{1}{j\\omega C} = -\\frac{j}{\\omega C}$$\nwith magnitude $|Z_C| = 1/(\\omega C)$ and phase -90°.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "EE-006",
+      "domain": "electrical_engineering",
+      "difficulty": "hard",
+      "title": "Op-amp gain - MISSING NEGATIVE",
+      "content": "For an inverting op-amp configuration with input resistor $R_1$ and feedback resistor $R_f$:\n$$A_v = \\frac{R_f}{R_1}$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MAJOR",
+            "category": "sign_error",
+            "description": "Inverting amplifier gain should be -Rf/R1, not Rf/R1. Missing negative sign."
+          }
+        ]
+      }
+    },
+    {
+      "id": "EE-007",
+      "domain": "electrical_engineering",
+      "difficulty": "hard",
+      "title": "RMS vs Peak - COMMON MISTAKE",
+      "content": "For a sinusoidal voltage $v(t) = V_p \\sin(\\omega t)$, the RMS value is:\n$$V_{rms} = \\frac{V_p}{2}$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MAJOR",
+            "category": "factor_error",
+            "description": "RMS of sinusoid is Vp/√2, not Vp/2. Factor of √2 ≈ 1.414, not 2."
+          }
+        ]
+      }
+    },
+    {
+      "id": "UQ-001",
+      "domain": "math",
+      "difficulty": "medium",
+      "title": "Error propagation - CORRECT",
+      "content": "For $z = x + y$ with independent uncertainties $\\sigma_x$ and $\\sigma_y$:\n$$\\sigma_z = \\sqrt{\\sigma_x^2 + \\sigma_y^2}$$",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "UQ-002",
+      "domain": "math",
+      "difficulty": "medium",
+      "title": "Error propagation - WRONG FORMULA",
+      "content": "For $z = x + y$ with independent uncertainties $\\sigma_x$ and $\\sigma_y$:\n$$\\sigma_z = \\sigma_x + \\sigma_y$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MAJOR",
+            "category": "formula_error",
+            "description": "For independent errors, add in quadrature: σz = √(σx² + σy²), not linear addition."
+          }
+        ]
+      }
+    },
+    {
+      "id": "UQ-003",
+      "domain": "physics",
+      "difficulty": "hard",
+      "title": "Significant figures - TOO PRECISE",
+      "content": "Given measurements: m = 5.2 ± 0.1 kg, v = 3.0 ± 0.2 m/s\nKinetic energy: $E = \\frac{1}{2}mv^2 = \\frac{1}{2}(5.2)(3.0)^2 = 23.4000$ J",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MINOR",
+            "category": "precision_error",
+            "description": "Result quoted to 6 significant figures from 2-significant-figure inputs. Should be ≈23 ± 4 J with proper error propagation."
+          }
+        ]
+      }
+    }
+  ]
+}

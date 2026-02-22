@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-02-22",
+  "models": [
+    {
+      "model": "Claude Opus 4.5",
+      "tp": 12,
+      "tn": 9,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.9230769230769231,
+      "f1": 0.9600000000000001,
+      "accuracy": 0.9545454545454546,
+      "disagreements": [
+        "FN: MATH-005"
+      ]
+    },
+    {
+      "model": "Claude Sonnet 4",
+      "tp": 12,
+      "tn": 9,
+      "fp": 0,
+      "fn": 1,
+      "precision": 1.0,
+      "recall": 0.9230769230769231,
+      "f1": 0.9600000000000001,
+      "accuracy": 0.9545454545454546,
+      "disagreements": [
+        "FN: MATH-005"
+      ]
+    },
+    {
+      "model": "Claude Haiku",
+      "tp": 13,
+      "tn": 9,
+      "fp": 0,
+      "fn": 0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "accuracy": 1.0,
+      "disagreements": []
+    }
+  ]
+}

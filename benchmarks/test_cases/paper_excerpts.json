@@ -1,0 +1,424 @@
+{
+  "metadata": {
+    "version": "2.0.0",
+    "created": "2026-02-22",
+    "description": "Real paper excerpts for VVUQ benchmarking - quantum optics, solid state, RF engineering",
+    "sources": ["textbook_derivations", "common_paper_errors", "errata_examples"]
+  },
+  "test_cases": [
+    {
+      "id": "QO-001",
+      "domain": "quantum_optics",
+      "difficulty": "medium",
+      "title": "Jaynes-Cummings Hamiltonian - CORRECT",
+      "source": "Standard cavity QED textbook",
+      "content": "The Jaynes-Cummings Hamiltonian describing a two-level atom coupled to a single cavity mode is:\n$$\\hat{H} = \\hbar\\omega_c \\hat{a}^\\dagger\\hat{a} + \\frac{\\hbar\\omega_a}{2}\\hat{\\sigma}_z + \\hbar g(\\hat{a}^\\dagger\\hat{\\sigma}_- + \\hat{a}\\hat{\\sigma}_+)$$\nwhere $g$ is the vacuum Rabi coupling strength, $\\omega_c$ is the cavity frequency, and $\\omega_a$ is the atomic transition frequency.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "QO-002",
+      "domain": "quantum_optics",
+      "difficulty": "hard",
+      "title": "Jaynes-Cummings - WRONG COUPLING TERM",
+      "source": "Common manuscript error",
+      "content": "The Jaynes-Cummings Hamiltonian is:\n$$\\hat{H} = \\hbar\\omega_c \\hat{a}^\\dagger\\hat{a} + \\frac{\\hbar\\omega_a}{2}\\hat{\\sigma}_z + \\hbar g(\\hat{a}^\\dagger\\hat{\\sigma}_+ + \\hat{a}\\hat{\\sigma}_-)$$\nwhere the coupling term describes the atom-cavity interaction.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "physics_error",
+            "description": "Coupling term has wrong operator pairing. Should be a†σ- + aσ+ (rotating wave approximation). The given form a†σ+ + aσ- violates energy conservation and the RWA."
+          }
+        ]
+      }
+    },
+    {
+      "id": "QO-003",
+      "domain": "quantum_optics",
+      "difficulty": "medium",
+      "title": "Purcell Factor - CORRECT",
+      "source": "Purcell 1946, standard form",
+      "content": "The Purcell factor describing the enhancement of spontaneous emission in a cavity is:\n$$F_P = \\frac{3Q\\lambda^3}{4\\pi^2 V}$$\nwhere $Q$ is the cavity quality factor, $\\lambda$ is the wavelength, and $V$ is the mode volume.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "QO-004",
+      "domain": "quantum_optics",
+      "difficulty": "hard",
+      "title": "Purcell Factor - MISSING FACTOR",
+      "source": "Common derivation error",
+      "content": "The Purcell enhancement factor is given by:\n$$F_P = \\frac{Q\\lambda^3}{4\\pi^2 V}$$\nThis shows that high-Q, small mode volume cavities maximize spontaneous emission enhancement.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MAJOR",
+            "category": "factor_error",
+            "description": "Missing factor of 3 in numerator. Correct form is F_P = 3Qλ³/(4π²V). The factor of 3 comes from averaging over dipole orientations."
+          }
+        ]
+      }
+    },
+    {
+      "id": "QO-005",
+      "domain": "quantum_optics",
+      "difficulty": "hard",
+      "title": "NV Center Zero-Field Splitting - CORRECT",
+      "source": "NV center literature",
+      "content": "The ground state spin Hamiltonian for the NV⁻ center in diamond is:\n$$\\hat{H} = D(S_z^2 - \\frac{S(S+1)}{3}) + \\gamma_e \\vec{B} \\cdot \\vec{S}$$\nwhere $D \\approx 2.87$ GHz is the zero-field splitting and $\\gamma_e = 28$ GHz/T is the electron gyromagnetic ratio.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "QO-006",
+      "domain": "quantum_optics",
+      "difficulty": "hard",
+      "title": "NV Magnetometry Sensitivity - WRONG SCALING",
+      "source": "Common error in sensitivity derivations",
+      "content": "The magnetic field sensitivity of an NV magnetometer scales as:\n$$\\eta_B \\propto \\frac{1}{\\gamma_e \\sqrt{C \\cdot T_2^* \\cdot t}}$$\nwhere $C$ is the photon collection efficiency, $T_2^*$ is the dephasing time, and $t$ is the total measurement time. For $N$ NV centers measured in parallel, the sensitivity improves as $1/N$.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MAJOR",
+            "category": "scaling_error",
+            "description": "For N independent NV centers, sensitivity improves as 1/√N (shot noise limit), not 1/N. The 1/N scaling would require entanglement (Heisenberg limit)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "QO-007",
+      "domain": "quantum_optics",
+      "difficulty": "medium",
+      "title": "Cooperativity Parameter - CORRECT",
+      "source": "Cavity QED standard",
+      "content": "The single-atom cooperativity in cavity QED is defined as:\n$$C = \\frac{g^2}{\\kappa \\gamma}$$\nwhere $g$ is the atom-cavity coupling, $\\kappa$ is the cavity decay rate, and $\\gamma$ is the atomic spontaneous emission rate. Strong coupling requires $C > 1$.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "SS-001",
+      "domain": "solid_state",
+      "difficulty": "medium",
+      "title": "Fermi-Dirac Distribution - CORRECT",
+      "source": "Solid state textbook",
+      "content": "The probability of occupation of a state at energy $E$ is given by the Fermi-Dirac distribution:\n$$f(E) = \\frac{1}{e^{(E-E_F)/k_BT} + 1}$$\nwhere $E_F$ is the Fermi energy, $k_B$ is Boltzmann's constant, and $T$ is temperature.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "SS-002",
+      "domain": "solid_state",
+      "difficulty": "medium",
+      "title": "Fermi-Dirac - SIGN ERROR",
+      "source": "Common student error",
+      "content": "The Fermi-Dirac distribution function is:\n$$f(E) = \\frac{1}{e^{(E_F-E)/k_BT} + 1}$$\nAt $T=0$, this gives a step function at the Fermi level.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "sign_error",
+            "description": "Exponent sign is inverted. Should be (E-E_F), not (E_F-E). The given form would give f=1 for E>>E_F and f=0 for E<<E_F, which is backwards."
+          }
+        ]
+      }
+    },
+    {
+      "id": "SS-003",
+      "domain": "solid_state",
+      "difficulty": "hard",
+      "title": "Effective Mass Approximation - CORRECT",
+      "source": "Semiconductor physics",
+      "content": "Near a band extremum, the electron energy can be approximated as:\n$$E(k) = E_c + \\frac{\\hbar^2 k^2}{2m^*}$$\nwhere the effective mass is defined by:\n$$\\frac{1}{m^*} = \\frac{1}{\\hbar^2}\\frac{d^2E}{dk^2}$$",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "SS-004",
+      "domain": "solid_state",
+      "difficulty": "hard",
+      "title": "Debye Model Specific Heat - LOW-T LIMIT ERROR",
+      "source": "Common approximation mistake",
+      "content": "The Debye model predicts that at low temperatures ($T << \\Theta_D$), the specific heat of a solid varies as:\n$$C_V = \\frac{12\\pi^4}{5}Nk_B\\left(\\frac{T}{\\Theta_D}\\right)^2$$\nThis is the famous Debye $T^2$ law.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "exponent_error",
+            "description": "Debye low-T specific heat scales as T³, not T². The correct form is C_V ∝ (T/Θ_D)³. The T² dependence would apply to 2D systems."
+          }
+        ]
+      }
+    },
+    {
+      "id": "SS-005",
+      "domain": "solid_state",
+      "difficulty": "medium",
+      "title": "Diamond Bandgap - CORRECT",
+      "source": "Materials property",
+      "content": "Diamond has an indirect bandgap of approximately 5.47 eV at room temperature. This large bandgap makes diamond transparent to visible light and gives it excellent electrical insulating properties.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "RF-001",
+      "domain": "rf_engineering",
+      "difficulty": "medium",
+      "title": "S-Parameter Definition - CORRECT",
+      "source": "Microwave engineering textbook",
+      "content": "For a two-port network, the S-parameters are defined as:\n$$S_{11} = \\frac{b_1}{a_1}\\bigg|_{a_2=0}, \\quad S_{21} = \\frac{b_2}{a_1}\\bigg|_{a_2=0}$$\nwhere $a_i$ are incident wave amplitudes and $b_i$ are reflected wave amplitudes, with port 2 terminated in $Z_0$.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "RF-002",
+      "domain": "rf_engineering",
+      "difficulty": "hard",
+      "title": "Noise Figure - WRONG FORMULA",
+      "source": "Common derivation error",
+      "content": "The noise figure of a cascaded system is given by:\n$$F_{total} = F_1 + F_2 + F_3 + ...$$\nwhere $F_i$ is the noise figure of the $i$-th stage.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "formula_error",
+            "description": "Missing gain terms. Friis formula is F_total = F_1 + (F_2-1)/G_1 + (F_3-1)/(G_1·G_2) + ... where G_i is the gain of stage i. Later stages contribute less if early stages have high gain."
+          }
+        ]
+      }
+    },
+    {
+      "id": "RF-003",
+      "domain": "rf_engineering",
+      "difficulty": "medium",
+      "title": "Transmission Line Impedance - CORRECT",
+      "source": "Electromagnetics textbook",
+      "content": "The characteristic impedance of a lossless transmission line is:\n$$Z_0 = \\sqrt{\\frac{L}{C}}$$\nwhere $L$ is the inductance per unit length and $C$ is the capacitance per unit length.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "RF-004",
+      "domain": "rf_engineering",
+      "difficulty": "hard",
+      "title": "Q-Factor of Resonator - MISSING 2π",
+      "source": "Common textbook error",
+      "content": "The quality factor of an LC resonator is defined as:\n$$Q = \\frac{f_0}{\\Delta f} = \\omega_0 RC$$\nwhere $f_0$ is the resonant frequency and $\\Delta f$ is the 3dB bandwidth.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MAJOR",
+            "category": "formula_error",
+            "description": "For a parallel RLC circuit, Q = R/(ω₀L) = ω₀RC. The formula Q = ω₀RC is correct for parallel RLC, but the first equality f₀/Δf applies to series RLC. Mixing definitions from different circuit topologies."
+          }
+        ]
+      }
+    },
+    {
+      "id": "NUM-001",
+      "domain": "numerical_methods",
+      "difficulty": "medium",
+      "title": "Taylor Series Truncation - CORRECT",
+      "source": "Numerical analysis",
+      "content": "The forward difference approximation for the first derivative is:\n$$f'(x) \\approx \\frac{f(x+h) - f(x)}{h} + O(h)$$\nwith first-order truncation error proportional to $h$.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "NUM-002",
+      "domain": "numerical_methods",
+      "difficulty": "medium",
+      "title": "Central Difference - WRONG ORDER",
+      "source": "Common mistake",
+      "content": "The central difference approximation for the first derivative is:\n$$f'(x) \\approx \\frac{f(x+h) - f(x-h)}{2h} + O(h)$$\nThis is first-order accurate like the forward difference.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "MAJOR",
+            "category": "accuracy_error",
+            "description": "Central difference is O(h²) accurate, not O(h). The symmetric stencil cancels the O(h) error term. This is why central differences are preferred despite requiring more function evaluations."
+          }
+        ]
+      }
+    },
+    {
+      "id": "NUM-003",
+      "domain": "numerical_methods",
+      "difficulty": "hard",
+      "title": "CFL Condition - CORRECT",
+      "source": "Computational physics",
+      "content": "For the explicit FDTD method, the Courant-Friedrichs-Lewy (CFL) stability condition requires:\n$$c\\Delta t \\leq \\frac{\\Delta x}{\\sqrt{d}}$$\nwhere $c$ is the wave speed, $\\Delta t$ is the time step, $\\Delta x$ is the spatial step, and $d$ is the number of spatial dimensions.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "NUM-004",
+      "domain": "numerical_methods",
+      "difficulty": "hard",
+      "title": "FDTD Dispersion - WRONG CLAIM",
+      "source": "Numerical EM paper error",
+      "content": "The Yee FDTD algorithm is dispersion-free for all wavelengths as long as the CFL condition is satisfied. This makes it ideal for broadband simulations without any numerical artifacts.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "physics_error",
+            "description": "FDTD has numerical dispersion that depends on propagation direction and wavelength. The phase velocity error scales as (Δx/λ)². For accurate results, typically need λ/Δx > 10-20. CFL ensures stability, not dispersion-free propagation."
+          }
+        ]
+      }
+    },
+    {
+      "id": "QM-001",
+      "domain": "quantum_mechanics",
+      "difficulty": "medium",
+      "title": "Commutator Relation - CORRECT",
+      "source": "QM textbook",
+      "content": "The canonical commutation relation for position and momentum operators is:\n$$[\\hat{x}, \\hat{p}] = i\\hbar$$\nThis fundamental relation leads to the Heisenberg uncertainty principle.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "QM-002",
+      "domain": "quantum_mechanics",
+      "difficulty": "hard",
+      "title": "Spin Commutator - WRONG FACTOR",
+      "source": "Common error in angular momentum",
+      "content": "The commutation relations for spin operators are:\n$$[S_x, S_y] = i S_z$$\nThese cyclic relations define the angular momentum algebra.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "factor_error",
+            "description": "Missing ℏ factor. Correct form is [Sₓ, Sᵧ] = iℏSᵤ. The dimensionless version [σₓ, σᵧ] = 2iσᵤ uses Pauli matrices with factor of 2, not 1."
+          }
+        ]
+      }
+    },
+    {
+      "id": "QM-003",
+      "domain": "quantum_mechanics",
+      "difficulty": "hard",
+      "title": "Density Matrix Evolution - CORRECT",
+      "source": "Open quantum systems",
+      "content": "The evolution of the density matrix under the Lindblad master equation is:\n$$\\frac{d\\rho}{dt} = -\\frac{i}{\\hbar}[H, \\rho] + \\sum_k \\gamma_k \\left(L_k \\rho L_k^\\dagger - \\frac{1}{2}\\{L_k^\\dagger L_k, \\rho\\}\\right)$$\nwhere $L_k$ are the Lindblad jump operators and $\\gamma_k$ are decay rates.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "QM-004",
+      "domain": "quantum_mechanics",
+      "difficulty": "hard",
+      "title": "Lindblad - WRONG ANTICOMMUTATOR",
+      "source": "Common sign error",
+      "content": "The Lindblad master equation for open system dynamics is:\n$$\\frac{d\\rho}{dt} = -\\frac{i}{\\hbar}[H, \\rho] + \\sum_k \\gamma_k \\left(L_k \\rho L_k^\\dagger + \\frac{1}{2}\\{L_k^\\dagger L_k, \\rho\\}\\right)$$",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "sign_error",
+            "description": "Wrong sign on anticommutator term. Should be -½{L†L, ρ}, not +½{L†L, ρ}. The negative sign ensures trace preservation: Tr(dρ/dt) = 0."
+          }
+        ]
+      }
+    },
+    {
+      "id": "THERMO-001",
+      "domain": "thermodynamics",
+      "difficulty": "medium",
+      "title": "Carnot Efficiency - CORRECT",
+      "source": "Thermodynamics textbook",
+      "content": "The maximum efficiency of a heat engine operating between hot reservoir at $T_H$ and cold reservoir at $T_C$ is:\n$$\\eta_{Carnot} = 1 - \\frac{T_C}{T_H}$$\nwhere temperatures are in Kelvin.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "THERMO-002",
+      "domain": "thermodynamics",
+      "difficulty": "hard",
+      "title": "Carnot Efficiency - CELSIUS ERROR",
+      "source": "Unit error in paper",
+      "content": "A heat engine operates between a hot source at 500°C and cold sink at 25°C. The Carnot efficiency is:\n$$\\eta = 1 - \\frac{25}{500} = 95\\%$$\nThis represents the theoretical maximum efficiency.",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "unit_error",
+            "description": "Must use Kelvin, not Celsius. Correct calculation: η = 1 - (25+273)/(500+273) = 1 - 298/773 = 61.4%. Using Celsius gives meaningless result."
+          }
+        ]
+      }
+    },
+    {
+      "id": "EM-001",
+      "domain": "electromagnetism",
+      "difficulty": "medium",
+      "title": "Maxwell Faraday - CORRECT",
+      "source": "EM textbook",
+      "content": "Faraday's law in differential form is:\n$$\\nabla \\times \\vec{E} = -\\frac{\\partial \\vec{B}}{\\partial t}$$\nA time-varying magnetic field induces a rotational electric field.",
+      "ground_truth": {
+        "is_correct": true,
+        "errors": []
+      }
+    },
+    {
+      "id": "EM-002",
+      "domain": "electromagnetism",
+      "difficulty": "hard",
+      "title": "Poynting Vector - WRONG FORMULA",
+      "source": "Common error",
+      "content": "The Poynting vector representing electromagnetic energy flux is:\n$$\\vec{S} = \\vec{E} \\cdot \\vec{B}/\\mu_0$$\nwith units of W/m².",
+      "ground_truth": {
+        "is_correct": false,
+        "errors": [
+          {
+            "type": "CRITICAL",
+            "category": "formula_error",
+            "description": "Poynting vector uses cross product, not dot product: S = E × B/μ₀ (or E × H). The dot product would give a scalar, not a vector, and has wrong physical meaning."
+          }
+        ]
+      }
+    }
+  ]
+}
